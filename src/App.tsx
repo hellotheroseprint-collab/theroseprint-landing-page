@@ -4,7 +4,6 @@ import RoseIcon from "./components/RoseIcon";
 import FaqSection from "./components/FaqSection";
 import KitModal, { useKitModalTimer } from "./components/KitModal";
 import { useLandingAnalytics } from "./hooks/useLandingAnalytics";
-import { track } from "./analytics/track";
 
 export default function App() {
   useLandingAnalytics();
