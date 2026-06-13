@@ -697,6 +697,30 @@ section[id] {
    RESPONSIVE
    ══════════════════════════════════════════════════════════════ */
 
+@media (max-width: 1024px) {
+  .hero-main {
+    gap: 2rem;
+  }
+
+  .phone-frame {
+    width: 220px;
+    height: 450px;
+    border-radius: 38px;
+  }
+
+  .phone-frame__screen {
+    border-radius: 32px;
+  }
+
+  .footer__columns {
+    gap: 2.5rem;
+  }
+
+  .section {
+    padding: 5rem 2rem;
+  }
+}
+
 @media (max-width: 768px) {
   .navbar {
     padding: var(--navbar-safe-top) 1rem 0.8rem;
@@ -708,20 +732,6 @@ section[id] {
   }
 
   .navbar__center {
-    justify-self: end;
-    order: 3;
-    grid-column: 1 / -1;
-    justify-content: flex-start;
-    gap: 0.85rem;
-    margin-top: 0.25rem;
-  }
-
-  .navbar__link {
-    font-size: 0.8rem;
-    opacity: 0.86;
-  }
-
-  .navbar__link:not(.navbar__link--primary) {
     display: none;
   }
 
@@ -730,10 +740,14 @@ section[id] {
   }
 
   .navbar__cta {
-    height: 35px;
-    padding: 0 0.82rem;
+    height: 44px;
+    padding: 0 1rem;
     font-size: 0.78rem;
     box-shadow: none;
+  }
+
+  .faq-item__summary {
+    padding: 1rem 0;
   }
 
   /* Hero stacks vertically on mobile: text -> form -> phone */
@@ -819,6 +833,74 @@ section[id] {
 
   .footer {
     padding: 1.75rem 1.5rem 1.75rem;
+  }
+
+  .kit-modal-form__title {
+    font-size: 1.4rem;
+  }
+
+  .kit-modal-form__input {
+    padding: 0.7rem 0.85rem;
+  }
+
+  .kit-modal-form__submit {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: var(--navbar-safe-top) 0.75rem 0.7rem;
+  }
+
+  .hero-main {
+    padding: 1.25rem 1rem 0;
+  }
+
+  .phone-frame {
+    width: 170px;
+    height: 350px;
+    border-radius: 30px;
+    border-width: 4px;
+  }
+
+  .phone-frame__screen {
+    border-radius: 26px;
+  }
+
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  .section--final-cta {
+    padding: 2.5rem 1rem 1.5rem;
+  }
+
+  .footer {
+    padding: 1.5rem 1rem;
+  }
+
+  .kit-modal-overlay {
+    padding: 1rem;
+  }
+
+  .kit-modal-body {
+    padding: 1.75rem 1.25rem 1.5rem;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero {
+    min-height: auto;
+    padding-bottom: 2rem;
+  }
+
+  .hero-visual {
+    display: none;
+  }
+
+  .scroll-indicator {
+    margin-top: 1rem;
   }
 }
 
