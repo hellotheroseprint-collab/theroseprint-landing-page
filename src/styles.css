@@ -287,16 +287,6 @@ section[id] {
   color: var(--text-secondary);
 }
 
-.hero-form-wrap {
-  margin-top: 1.15rem;
-  width: 100%;
-  max-width: 420px;
-}
-
-.product-card .hero-form-wrap {
-  max-width: none;
-}
-
 .hero-microcopy {
   margin-top: 0.65rem;
   font-size: 0.82rem;
@@ -311,29 +301,61 @@ section[id] {
 
 .product-cards {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.06fr 0.94fr;
   gap: 1.25rem;
   width: 100%;
   scroll-margin-top: 6.25rem;
 }
 
 .product-card {
+  --action-row: 48px;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background: var(--color-white);
   border-radius: 18px;
   padding: 1.7rem 1.55rem 1.45rem;
-  box-shadow: 0 16px 40px rgba(44, 40, 37, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* The paid product leads on contrast alone: a clean white surface lifted off
+   the blush background, with the rose carried by the pill rather than a rule. */
+.product-card--guide {
+  background: var(--color-white);
+  box-shadow: 0 20px 50px rgba(44, 40, 37, 0.12);
+  border: 1px solid rgba(201, 126, 111, 0.14);
+}
+
+/* The free companion sits quieter beside it. */
+.product-card--app {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(44, 40, 37, 0.05);
+  border: 1px solid var(--border-default);
 }
 
 .product-card__eyebrow {
   font-size: 0.72rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-deep-rose);
+  color: var(--text-secondary);
   font-weight: 600;
+}
+
+.product-card--guide .product-card__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.32rem 0.7rem;
+  border-radius: 999px;
+  background: var(--color-blush-wash);
+  color: var(--text-primary);
+}
+
+.product-card__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-deep-rose);
 }
 
 .product-card__title {
@@ -344,6 +366,11 @@ section[id] {
   margin-top: 0.45rem;
 }
 
+/* The pill carries its own padding, so it needs more room to read as a gap. */
+.product-card--guide .product-card__title {
+  margin-top: 0.95rem;
+}
+
 .product-card__body {
   margin-top: 0.65rem;
   font-size: 0.98rem;
@@ -351,25 +378,55 @@ section[id] {
   color: var(--text-secondary);
 }
 
-.product-card__meta {
-  margin-top: 0.85rem;
-  font-size: 0.92rem;
+/* Both cards end in the same two rows, so the CTAs share a baseline. */
+.product-card__action {
+  margin-top: auto;
+  padding-top: 1.15rem;
+  width: 100%;
+  display: grid;
+  grid-template-rows: var(--action-row) var(--action-row);
+  gap: 0.75rem;
+}
+
+.product-card--app .product-card__action {
+  display: block;
+}
+
+.product-card__price {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.product-card__price-amount {
+  font-family: "Maragsa", Georgia, serif;
+  font-size: 1.7rem;
+  line-height: 1;
   color: var(--text-primary);
+}
+
+.product-card__price-meta {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
 }
 
 .product-card .guide-buy--primary {
   width: 100%;
-  margin-top: 1.15rem;
+}
+
+.product-card__foot {
+  margin-top: 0.85rem;
 }
 
 .product-card__micro {
-  margin-top: 0.5rem;
   font-size: 0.8rem;
   color: var(--text-secondary);
 }
 
 .product-card__more {
-  margin-top: 0.85rem;
+  display: inline-block;
+  margin-top: 0.5rem;
   font-size: 0.85rem;
   color: var(--text-primary);
   text-decoration: underline;
@@ -1345,6 +1402,32 @@ section[id] {
   min-height: 80px;
 }
 
+/* Reserve the input + button rows so the card doesn't shift when Kit mounts. */
+.product-card .waitlist-kit-embed {
+  min-height: calc(var(--action-row) * 2 + 0.75rem);
+}
+
+.product-card .formkit-form .formkit-submit {
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.product-card .formkit-form .formkit-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(44, 40, 37, 0.12);
+}
+
+/* Kit clears the outline and signals focus through a border colour its own
+   embed styles can no longer reach, so restore a visible ring here. */
+.product-card .waitlist-kit-embed .formkit-form .formkit-input:focus,
+.product-card .waitlist-kit-embed .formkit-form .formkit-submit:focus-visible {
+  outline: 2px solid var(--color-charcoal);
+  outline-offset: 2px;
+}
+
+.product-card .formkit-form .formkit-spinner > div {
+  background-color: var(--color-charcoal);
+}
+
 .waitlist-kit-placeholder {
   padding: 0.75rem 0.25rem;
 }
@@ -1671,10 +1754,6 @@ section[id] {
   }
 
   .hero-subtitle {
-    max-width: 100%;
-  }
-
-  .hero-form-wrap {
     max-width: 100%;
   }
 

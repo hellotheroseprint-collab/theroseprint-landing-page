@@ -19,8 +19,14 @@ export default function RoseHero() {
         </div>
 
         <div id="products" className="product-cards">
-          <article className="product-card" aria-labelledby="product-guide-title">
-            <p className="product-card__eyebrow">Available now</p>
+          <article
+            className="product-card product-card--guide"
+            aria-labelledby="product-guide-title"
+          >
+            <p className="product-card__eyebrow">
+              <span className="product-card__dot" aria-hidden />
+              Available now
+            </p>
             <h2 id="product-guide-title" className="product-card__title">
               The guide
             </h2>
@@ -28,22 +34,32 @@ export default function RoseHero() {
               {GUIDE_TITLE} &mdash; a practical playbook you keep forever.
               Instant PDF, yours whether or not you join the app.
             </p>
-            <p className="product-card__meta">
-              ${GUIDE_PRICE_USD} · one-time
-            </p>
-            <GuideBuyButton source="hero" />
-            <a
-              href="#guide"
-              className="product-card__more"
-              onClick={() => track("rp_guide_cta_click", { source: "hero" })}
-            >
-              See what&apos;s inside
-            </a>
+            <div className="product-card__action">
+              <p className="product-card__price">
+                <span className="product-card__price-amount">
+                  ${GUIDE_PRICE_USD}
+                </span>
+                <span className="product-card__price-meta">one-time</span>
+              </p>
+              <GuideBuyButton source="hero" />
+            </div>
+            <div className="product-card__foot">
+              <p className="product-card__micro">
+                Secure checkout. Instant download.
+              </p>
+              <a
+                href="#guide"
+                className="product-card__more"
+                onClick={() => track("rp_guide_cta_click", { source: "hero" })}
+              >
+                See what&apos;s inside
+              </a>
+            </div>
           </article>
 
           <article
             id="waitlist"
-            className="product-card"
+            className="product-card product-card--app"
             aria-labelledby="product-app-title"
           >
             <p className="product-card__eyebrow">Early access</p>
@@ -54,13 +70,17 @@ export default function RoseHero() {
               Log flares, spot patterns, and build a routine that fits your
               real life. Join the waitlist &mdash; free.
             </p>
-            <div className="hero-form-wrap">
+            <div className="product-card__action">
               <KitEmbed />
             </div>
-            <p className="product-card__micro">Free to join. No spam, ever.</p>
-            <a href="#app" className="product-card__more">
-              See how the app works
-            </a>
+            <div className="product-card__foot">
+              <p className="product-card__micro">
+                Free to join. No spam, ever.
+              </p>
+              <a href="#app" className="product-card__more">
+                See how the app works
+              </a>
+            </div>
           </article>
         </div>
       </div>
