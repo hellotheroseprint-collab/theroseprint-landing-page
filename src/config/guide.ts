@@ -38,6 +38,10 @@ export type GuidePreviewPage = (typeof GUIDE_PREVIEW_PAGES)[number];
 
 export const PAYHIP_PRODUCT_ID = rawProductId || undefined;
 
+export const GUIDE_PRODUCT_URL = PAYHIP_PRODUCT_ID
+  ? `https://payhip.com/b/${encodeURIComponent(PAYHIP_PRODUCT_ID)}`
+  : undefined;
+
 export const GUIDE_CHECKOUT_URL =
   rawCheckoutUrl ||
   (PAYHIP_PRODUCT_ID
@@ -45,6 +49,11 @@ export const GUIDE_CHECKOUT_URL =
     : undefined);
 
 export const isGuideCheckoutReady = Boolean(GUIDE_CHECKOUT_URL);
+
+export function guidePurchaseUrl(source: GuideCtaSource): string | undefined {
+  if (source === "hero") return GUIDE_PRODUCT_URL ?? GUIDE_CHECKOUT_URL;
+  return GUIDE_CHECKOUT_URL;
+}
 
 export type GuideCtaSource =
   | "hero"
