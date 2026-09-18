@@ -4,6 +4,11 @@ declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[];
     gtag?: (...args: unknown[]) => void;
+    Payhip?: {
+      Checkout?: ((opts: { product: string }) => void) & {
+        open?: (opts: { product: string }) => void;
+      };
+    };
   }
 }
 
