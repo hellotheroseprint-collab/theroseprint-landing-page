@@ -1,91 +1,59 @@
-import KitEmbed from "./KitEmbed";
 import GuideBuyButton from "./GuideBuyButton";
 import { track } from "../analytics/track";
-import { GUIDE_PRICE_USD, GUIDE_TITLE } from "../config/guide";
+import { GUIDE_PRICE_USD } from "../config/guide";
 
 export default function RoseHero() {
   return (
     <section id="hero" className="hero">
-      <div className="hero-main hero-main--products">
-        <div className="hero-intro">
-          <h1 className="hero-title">
-            Tired of guessing what triggers your flares?
-          </h1>
-          <p className="hero-subtitle">
-            Roseprint makes two things for people with rosacea: a guide you can
-            use tonight, and an app that tracks your skin over time. You can
-            get both.
-          </p>
+      <div className="hero-roses" aria-hidden="true">
+        <div className="hero-rose hero-rose--a">
+          <img src="/rose-solid.svg" alt="" className="hero-rose__img" />
         </div>
+        <div className="hero-rose hero-rose--b">
+          <img src="/rose-outline.svg" alt="" className="hero-rose__img" />
+        </div>
+      </div>
 
-        <div id="products" className="product-cards">
-          <article
-            className="product-card product-card--guide"
-            aria-labelledby="product-guide-title"
-          >
-            <p className="product-card__eyebrow">
-              <span className="product-card__dot" aria-hidden />
-              Available now
-            </p>
-            <h2 id="product-guide-title" className="product-card__title">
-              The guide
-            </h2>
-            <p className="product-card__body">
-              {GUIDE_TITLE} &mdash; a practical playbook you keep forever.
-              Instant PDF, yours whether or not you join the app.
-            </p>
-            <div className="product-card__action">
-              <p className="product-card__price">
-                <span className="product-card__price-amount">
-                  ${GUIDE_PRICE_USD}
-                </span>
-                <span className="product-card__price-meta">one-time</span>
-              </p>
-              <GuideBuyButton source="hero" />
-            </div>
-            <div className="product-card__foot">
-              <p className="product-card__micro">
-                Secure checkout. Instant download.
-              </p>
-              <a
-                href="#guide"
-                className="product-card__more"
-                onClick={() => track("rp_guide_cta_click", { source: "hero" })}
-              >
-                See what&apos;s inside
-              </a>
-            </div>
-          </article>
+      <div className="hero-main">
+        <div className="hero-intro">
+          <p className="hero-eyebrow">The Roseprint</p>
+          <h1 className="hero-title">Rosacea is more than redness.</h1>
+          <p className="hero-subtitle">
+            Understand your skin. Track what affects it. Find a more informed
+            way forward.
+          </p>
+          <p className="hero-lede">
+            The Roseprint is building practical, evidence-informed resources
+            and tools for people living with rosacea.
+          </p>
 
-          <article
-            id="waitlist"
-            className="product-card product-card--app"
-            aria-labelledby="product-app-title"
-          >
-            <p className="product-card__eyebrow">Early access</p>
-            <h2 id="product-app-title" className="product-card__title">
-              The app
-            </h2>
-            <p className="product-card__body">
-              Log flares, spot patterns, and build a routine that fits your
-              real life. Join the waitlist &mdash; free.
+          <div className="hero-actions">
+            <GuideBuyButton source="hero">
+              Get the Rosacea Guide &rarr;
+            </GuideBuyButton>
+            <p className="hero-price">
+              <span className="hero-price__amount">${GUIDE_PRICE_USD}</span>
+              <span className="hero-price__meta">one-time · instant PDF</span>
             </p>
-            <div className="product-card__action">
-              <KitEmbed />
-            </div>
-            <div className="product-card__foot">
-              <p className="product-card__micro">
-                Free to join. No spam, ever.
-              </p>
-              <a href="#app" className="product-card__more">
-                See how the app works
-              </a>
-            </div>
-          </article>
+          </div>
+
+          <p className="hero-alt">
+            <span className="hero-alt__lead">Not ready yet?</span>{" "}
+            <a
+              href="#free-guide"
+              onClick={() => track("rp_free_guide_cta_click", { source: "hero" })}
+            >
+              Start with the free guide &rarr;
+            </a>
+          </p>
+
+          <p className="hero-microcopy">
+            Free resources &middot; Practical tools &middot; App coming soon
+          </p>
         </div>
       </div>
       <a
-        href="#empathy"
+        href="#guide"
         className="scroll-indicator scroll-indicator--visible"
         aria-label="Scroll to learn more"
         onClick={() => track("rp_hero_scroll_click")}

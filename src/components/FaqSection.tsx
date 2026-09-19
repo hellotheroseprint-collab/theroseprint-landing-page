@@ -1,16 +1,35 @@
 import type { ReactNode } from "react";
 import { track } from "../analytics/track";
-import { GUIDE_PRICE_USD, GUIDE_TITLE } from "../config/guide";
+import {
+  FREE_GUIDE_TITLE,
+  GUIDE_PRICE_USD,
+  GUIDE_TITLE,
+} from "../config/guide";
 import GuideBuyButton from "./GuideBuyButton";
 
 const FAQ_ITEMS: { q: string; a: ReactNode }[] = [
   {
-    q: "What's the difference between the guide and the app?",
-    a: "Two different products. The guide is a PDF playbook you can use on your own, today. The app is a tracking companion in early access — log flares, see patterns, and shape a routine over time.",
+    q: "What's the difference between the free guide and the paid one?",
+    a: (
+      <>
+        {FREE_GUIDE_TITLE} is free and practical — eight pages of things you
+        can do tonight to calm a flare, and none of them go on your skin.{" "}
+        {GUIDE_TITLE} is the full ${GUIDE_PRICE_USD} playbook: 36 pages across
+        understand, care and live, plus three printable worksheets.{" "}
+        <GuideBuyButton source="faq" product="free" variant="text">
+          Start with the free guide
+        </GuideBuyButton>
+        .
+      </>
+    ),
+  },
+  {
+    q: "What's the difference between the guides and the app?",
+    a: "The guides are PDFs you can read and use on your own, today. The app is a tracking companion still in development — log flares, see patterns, and shape a routine over time.",
   },
   {
     q: "Can I get both?",
-    a: "Yes. They work well together, and neither requires the other. Buy the guide, join the waitlist, or do both.",
+    a: "Yes. They work well together, and neither requires the other. Get a guide, join the app waitlist, or do both.",
   },
   {
     q: "What's in the guide?",
@@ -46,11 +65,11 @@ const FAQ_ITEMS: { q: string; a: ReactNode }[] = [
   },
   {
     q: "How will you use my email?",
-    a: "Only for waitlist and launch-related messages. You can unsubscribe any time. Buying the guide does not sign you up for the waitlist.",
+    a: "The waitlist list is only used for app and launch-related messages, and you can unsubscribe any time. The guides are delivered by Payhip, which uses your email to send the download — buying or downloading a guide does not sign you up for the waitlist.",
   },
   {
-    q: "Is Roseprint a medical diagnosis?",
-    a: "No. The guide and the app help you track and understand patterns; they don't replace a dermatologist. Always seek professional advice for diagnosis and treatment.",
+    q: "Is The Roseprint a medical diagnosis?",
+    a: "No. The guides and the app help you track and understand patterns; they don't replace a dermatologist. Always seek professional advice for diagnosis and treatment.",
   },
   {
     q: "Who is this for?",
@@ -58,7 +77,7 @@ const FAQ_ITEMS: { q: string; a: ReactNode }[] = [
   },
   {
     q: "Will there be a cost?",
-    a: `The guide is $${GUIDE_PRICE_USD}, one-time. Joining the app waitlist is free. We'll share app pricing clearly before you commit to anything.`,
+    a: `${GUIDE_TITLE} is $${GUIDE_PRICE_USD}, one-time. ${FREE_GUIDE_TITLE} and the app waitlist are both free. We'll share app pricing clearly before you commit to anything.`,
   },
 ];
 

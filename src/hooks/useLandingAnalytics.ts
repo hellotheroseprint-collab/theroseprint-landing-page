@@ -4,6 +4,7 @@ import { track } from "../analytics/track";
 export function useLandingAnalytics() {
   const waitlistViewed = useRef(false);
   const guideViewed = useRef(false);
+  const freeGuideViewed = useRef(false);
   const appViewed = useRef(false);
 
   useEffect(() => {
@@ -60,6 +61,7 @@ export function useLandingAnalytics() {
 
     observeOnce("waitlist", waitlistViewed, "rp_waitlist_section_view");
     observeOnce("guide", guideViewed, "rp_guide_section_view");
+    observeOnce("free-guide", freeGuideViewed, "rp_free_guide_section_view");
     observeOnce("app", appViewed, "rp_app_section_view");
 
     return () => {

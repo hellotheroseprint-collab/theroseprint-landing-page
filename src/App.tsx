@@ -3,12 +3,14 @@ import RoseHero from "./components/RoseHero";
 import RoseIcon from "./components/RoseIcon";
 import PhonePreview from "./components/PhonePreview";
 import GuideSection from "./components/GuideSection";
+import FreeGuideSection from "./components/FreeGuideSection";
 import GuideBuyButton from "./components/GuideBuyButton";
+import KitEmbed from "./components/KitEmbed";
 import FaqSection from "./components/FaqSection";
 import KitModal, { useKitModalTimer } from "./components/KitModal";
 import { useLandingAnalytics } from "./hooks/useLandingAnalytics";
 import { track } from "./analytics/track";
-import { GUIDE_PRICE_USD } from "./config/guide";
+import { FREE_GUIDE_TITLE, GUIDE_PRICE_USD } from "./config/guide";
 
 export default function App() {
   useLandingAnalytics();
@@ -40,6 +42,15 @@ export default function App() {
             >
               The guide
             </a>
+            <a
+              href="#free-guide"
+              className="navbar__link"
+              onClick={() =>
+                track("rp_free_guide_cta_click", { source: "nav" })
+              }
+            >
+              Free guide
+            </a>
             <a href="#app" className="navbar__link">
               The app
             </a>
@@ -48,44 +59,29 @@ export default function App() {
             </a>
           </div>
           <div className="navbar__right">
-            <a href="#products" className="navbar__cta">
-              Get started
-            </a>
+            <GuideBuyButton source="nav" variant="text" className="navbar__cta">
+              Get the guide
+            </GuideBuyButton>
           </div>
         </div>
       </nav>
 
       <RoseHero />
-      <section id="empathy" className="section section--empathy">
-        <div className="section__inner content-block">
-          <h2 className="section__heading">
-            You&apos;re not imagining it &mdash; rosacea is exhausting
-          </h2>
-          <div className="section__body">
-            <p>
-              It shows up on your face, but it affects your confidence, your
-              plans, and how you move through the world. Most people spend years
-              piecing together advice from forums, friends, and trial-and-error
-              &mdash; never quite sure what&apos;s helping and what&apos;s making
-              things worse.
-            </p>
-            <p>
-              That&apos;s why Roseprint is two products: a guide you can use on
-              your own today, and an app we&apos;re building with people who live
-              with rosacea &mdash; so you can understand your skin in the moment,
-              and over time.
-            </p>
-          </div>
-        </div>
-      </section>
 
       <GuideSection />
+
+      <FreeGuideSection />
 
       <section id="app" className="section section--how">
         <div className="section__inner app-layout">
           <div className="app-copy">
-            <p className="guide-eyebrow">The app · early access</p>
-            <h2 className="section__heading">Your skin, tracked over time</h2>
+            <p className="guide-eyebrow">Coming soon</p>
+            <h2 className="section__heading">Something bigger is coming.</h2>
+            <p className="app-lede">
+              The Roseprint app is a personal space to help you understand your
+              rosacea over time &mdash; from tracking symptoms and potential
+              triggers to making sense of your patterns.
+            </p>
             <ol className="how-steps">
               <li className="how-step">
                 <h3 className="how-step__title">
@@ -100,8 +96,8 @@ export default function App() {
               <li className="how-step">
                 <h3 className="how-step__title">Finally connect the dots</h3>
                 <p className="how-step__body">
-                  Roseprint surfaces trends between your daily life and your
-                  skin, so you stop guessing and start understanding what
+                  The Roseprint surfaces trends between your daily life and
+                  your skin, so you stop guessing and start understanding what
                   actually matters.
                 </p>
               </li>
@@ -115,26 +111,50 @@ export default function App() {
                 </p>
               </li>
             </ol>
-            <button
-              type="button"
-              className="app-waitlist-cta"
-              onClick={() => triggerFromClick(openModal)}
-            >
-              Get early access
-            </button>
-            <p className="app-waitlist-note">
-              Free to join. The guide is separate &mdash; you can{" "}
-              <a
-                href="#guide"
-                onClick={() => track("rp_guide_cta_click", { source: "app" })}
-              >
-                get it anytime
-              </a>
-              .
-            </p>
+
+            <div id="waitlist" className="app-waitlist">
+              <h3 className="app-waitlist__title">Join the waitlist</h3>
+              <p className="app-waitlist__sub">
+                Be the first to know when the app launches, and get occasional
+                research-informed resources and updates from The Roseprint.
+              </p>
+              <KitEmbed />
+              <p className="app-waitlist-note">
+                Free to join. Unsubscribe any time. This is separate from the
+                guides &mdash; you can{" "}
+                <a
+                  href="#guide"
+                  onClick={() => track("rp_guide_cta_click", { source: "app" })}
+                >
+                  get the guide
+                </a>{" "}
+                without joining.
+              </p>
+            </div>
           </div>
           <div className="app-visual">
             <PhonePreview />
+          </div>
+        </div>
+      </section>
+
+      <section id="mission" className="section section--mission">
+        <div className="section__inner content-block">
+          <h2 className="section__heading">
+            Rosacea can feel confusing. It shouldn&apos;t have to.
+          </h2>
+          <div className="section__body">
+            <p>
+              You don&apos;t need another endless list of skincare products or
+              conflicting advice. Most people spend years piecing together
+              forums, friends, and trial-and-error &mdash; never quite sure
+              what&apos;s helping and what&apos;s making things worse.
+            </p>
+            <p>
+              The Roseprint is being built to bring together practical
+              information, personal tracking, and tools that make living with
+              rosacea a little easier.
+            </p>
           </div>
         </div>
       </section>
@@ -143,23 +163,25 @@ export default function App() {
 
       <section id="final-cta" className="section section--final-cta">
         <div className="section__inner final-cta-inner">
-          <h2 className="final-cta__heading">Two ways to start</h2>
+          <h2 className="final-cta__heading">Start where you are</h2>
           <p className="final-cta__sub">
-            Get the guide tonight, join the app waitlist, or do both &mdash;
-            neither requires the other.
+            Get the full guide tonight, or start free &mdash; neither requires
+            the other.
           </p>
           <div className="final-cta-actions">
             <GuideBuyButton source="final-cta" variant="on-dark">
               Get the guide — ${GUIDE_PRICE_USD}
             </GuideBuyButton>
-            <button
-              type="button"
-              className="final-cta__button"
-              onClick={() => triggerFromClick(openModal)}
-            >
-              Get early access
-            </button>
           </div>
+          <p className="final-cta__alt">
+            <GuideBuyButton
+              source="final-cta"
+              product="free"
+              variant="text"
+            >
+              Or get {FREE_GUIDE_TITLE} — free &rarr;
+            </GuideBuyButton>
+          </p>
         </div>
       </section>
 
@@ -168,30 +190,25 @@ export default function App() {
           <div className="footer__brand">the roseprint.</div>
           <div className="footer__columns">
             <div className="footer__column">
-              <h4>Products</h4>
+              <h4>Guides</h4>
               <ul>
                 <li>
-                  <a
-                    href="#guide"
-                    onClick={() =>
-                      track("rp_guide_cta_click", { source: "footer" })
-                    }
-                  >
-                    The guide
-                  </a>
+                  <GuideBuyButton source="footer" variant="text">
+                    The Rosacea Blueprint — ${GUIDE_PRICE_USD}
+                  </GuideBuyButton>
                 </li>
                 <li>
-                  <a href="#app">The app</a>
+                  <GuideBuyButton source="footer" product="free" variant="text">
+                    {FREE_GUIDE_TITLE} — free
+                  </GuideBuyButton>
                 </li>
               </ul>
             </div>
             <div className="footer__column">
-              <h4>Get started</h4>
+              <h4>The app</h4>
               <ul>
                 <li>
-                  <GuideBuyButton source="footer" variant="text">
-                    Get the guide — ${GUIDE_PRICE_USD}
-                  </GuideBuyButton>
+                  <a href="#app">How it works</a>
                 </li>
                 <li>
                   <button
@@ -199,7 +216,7 @@ export default function App() {
                     className="footer__link-btn"
                     onClick={() => triggerFromClick(openModal)}
                   >
-                    Get early access
+                    Join the waitlist
                   </button>
                 </li>
                 <li>

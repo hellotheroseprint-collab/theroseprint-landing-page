@@ -44,13 +44,13 @@ function GuideBookMockup() {
               <span className="rbook__edition">Edition one</span>
             </div>
             <div>
-              <h2 className="rbook__title">
+              <p className="rbook__title">
                 The
                 <br />
                 Rosacea
                 <br />
                 Blueprint
-              </h2>
+              </p>
               <p className="rbook__sub">A guide to getting to know your skin</p>
               <div className="rbook__note">
                 <div className="rbook__noteRule" />

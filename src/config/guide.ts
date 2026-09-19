@@ -1,5 +1,7 @@
 const rawProductId = import.meta.env.VITE_PAYHIP_PRODUCT_ID?.trim() ?? "";
 const rawCheckoutUrl = import.meta.env.VITE_GUIDE_CHECKOUT_URL?.trim() ?? "";
+const rawFreeProductId =
+  import.meta.env.VITE_PAYHIP_FREE_PRODUCT_ID?.trim() ?? "";
 
 export const GUIDE_PRICE_USD = 26;
 
@@ -62,4 +64,24 @@ export type GuideCtaSource =
   | "app"
   | "faq"
   | "footer"
-  | "final-cta";
+  | "final-cta"
+  | "free-section";
+
+/* ── Free starter guide ─────────────────────────────────────────
+   A $0 Payhip product: Payhip collects the email and delivers the PDF,
+   so the site only has to link out to it. */
+
+export const FREE_GUIDE_PRODUCT_ID = rawFreeProductId || "LzXQf";
+
+export const FREE_GUIDE_TITLE = "The Calm Kit";
+
+export const FREE_GUIDE_URL = `https://payhip.com/b/${encodeURIComponent(
+  FREE_GUIDE_PRODUCT_ID,
+)}`;
+
+export const FREE_GUIDE_FACTS = [
+  "Six gentle rituals for a calmer face — and not one of them goes on your skin",
+  "8 pages of things you can do tonight, with what you already have at home",
+  "One honest page on home remedies",
+  "A tear-out checklist for tonight",
+] as const;

@@ -118,7 +118,7 @@ export default function KitModal({ open, onClose }: KitModalProps) {
           ) : (
             <form onSubmit={handleSubmit} className="kit-modal-form">
               <h2 className="kit-modal-form__title">
-                Be the first to try Roseprint
+                Be the first to try The Roseprint app
               </h2>
               <p className="kit-modal-form__sub">
                 Join the waitlist for early access &mdash; no spam, ever.
@@ -131,8 +131,9 @@ export default function KitModal({ open, onClose }: KitModalProps) {
                   name="email_address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email Address"
-                  aria-label="Email Address"
+                  placeholder="Email address"
+                  aria-label="Email address"
+                  autoComplete="email"
                   required
                   className="kit-modal-form__input"
                 />
@@ -143,7 +144,7 @@ export default function KitModal({ open, onClose }: KitModalProps) {
                 disabled={status === "sending"}
                 className="kit-modal-form__submit"
               >
-                {status === "sending" ? "Joining\u2026" : "Get early access"}
+                {status === "sending" ? "Joining\u2026" : "Join the waitlist"}
               </button>
 
               {status === "error" && (
