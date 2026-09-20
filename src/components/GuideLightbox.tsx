@@ -103,7 +103,9 @@ export default function GuideLightbox({
               aria-label="Previous page"
               onClick={() => onStep(-1)}
             >
-              ←
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M15 4 L7 12 L15 20" />
+              </svg>
             </button>
             <button
               type="button"
@@ -111,7 +113,9 @@ export default function GuideLightbox({
               aria-label="Next page"
               onClick={() => onStep(1)}
             >
-              →
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M9 4 L17 12 L9 20" />
+              </svg>
             </button>
             <button
               ref={closeRef}

@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import GuideBuyButton from "./GuideBuyButton";
 import GuideLightbox from "./GuideLightbox";
+import GuidePreview from "./GuidePreview";
 import { track } from "../analytics/track";
 import {
   GUIDE_FACTS,
@@ -76,6 +77,12 @@ export default function GuideSection() {
   const [returnFocusTo, setReturnFocusTo] = useState<HTMLElement | null>(null);
 
   const closeLightbox = useCallback(() => setActiveIndex(null), []);
+  const openLightbox = useCallback((index: number, trigger: HTMLElement) => {
+    const page = GUIDE_PREVIEW_PAGES[index];
+    setReturnFocusTo(trigger);
+    setActiveIndex(index);
+    track("rp_guide_preview_open", { label: page.label, page: page.num });
+  }, []);
   const stepLightbox = useCallback((delta: number) => {
     setActiveIndex((current) => {
       if (current === null) return current;
@@ -138,32 +145,11 @@ export default function GuideSection() {
           <div className="guide-inside__head">
             <p className="guide-inside__eyebrow">Look inside</p>
             <p className="guide-inside__hint">
-              Four pages from the guide — tap any page to read it larger
+              Four pages from the guide — swipe through, tap any page to read
+              it larger
             </p>
           </div>
-          <div className="guide-inside__grid">
-            {GUIDE_PREVIEW_PAGES.map((page, index) => (
-              <button
-                key={page.src}
-                type="button"
-                className="guide-page"
-                onClick={(event) => {
-                  setReturnFocusTo(event.currentTarget);
-                  setActiveIndex(index);
-                  track("rp_guide_preview_open", {
-                    label: page.label,
-                    page: page.num,
-                  });
-                }}
-              >
-                <div className="guide-page__frame">
-                  <img src={page.src} alt={page.label} loading="lazy" />
-                </div>
-                <p className="guide-page__label">{page.label}</p>
-                <p className="guide-page__num">Page {page.num}</p>
-              </button>
-            ))}
-          </div>
+          <GuidePreview pages={GUIDE_PREVIEW_PAGES} onOpen={openLightbox} />
         </div>
       </section>
 

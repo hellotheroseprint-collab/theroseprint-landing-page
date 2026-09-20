@@ -74,7 +74,7 @@ export default function App() {
 
       <section id="app" className="section section--how">
         <div className="section__inner app-layout">
-          <div className="app-copy">
+          <div className="app-intro">
             <p className="guide-eyebrow">Coming soon</p>
             <h2 className="section__heading">Something bigger is coming.</h2>
             <p className="app-lede">
@@ -111,29 +111,30 @@ export default function App() {
                 </p>
               </li>
             </ol>
-
-            <div id="waitlist" className="app-waitlist">
-              <h3 className="app-waitlist__title">Join the waitlist</h3>
-              <p className="app-waitlist__sub">
-                Be the first to know when the app launches, and get occasional
-                research-informed resources and updates from The Roseprint.
-              </p>
-              <KitEmbed />
-              <p className="app-waitlist-note">
-                Free to join. Unsubscribe any time. This is separate from the
-                guides &mdash; you can{" "}
-                <a
-                  href="#guide"
-                  onClick={() => track("rp_guide_cta_click", { source: "app" })}
-                >
-                  get the guide
-                </a>{" "}
-                without joining.
-              </p>
-            </div>
           </div>
+
           <div className="app-visual">
             <PhonePreview />
+          </div>
+
+          <div id="waitlist" className="app-waitlist">
+            <h3 className="app-waitlist__title">Join the waitlist</h3>
+            <p className="app-waitlist__sub">
+              Be the first to know when the app launches, and get occasional
+              research-informed resources and updates from The Roseprint.
+            </p>
+            <KitEmbed />
+            <p className="app-waitlist-note">
+              Free to join. Unsubscribe any time. This is separate from the
+              guides &mdash; you can{" "}
+              <a
+                href="#guide"
+                onClick={() => track("rp_guide_cta_click", { source: "app" })}
+              >
+                get the guide
+              </a>{" "}
+              without joining.
+            </p>
           </div>
         </div>
       </section>
