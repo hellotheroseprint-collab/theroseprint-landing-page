@@ -2048,18 +2048,20 @@ section[id] {
     padding: 1rem 0;
   }
 
-  /* Hero stacks vertically on mobile: text -> form -> phone */
+  /* Mobile composition: a visible bloom above the type, another below it.
+     The copy is no longer vertically centred into the artwork — it sits in
+     a reserved band between them. The hero may grow past one screen. */
   .hero {
     min-height: 100svh;
-    padding-top: calc(var(--navbar-safe-top) + 3.85rem);
+    padding-top: calc(var(--navbar-safe-top) + 3.4rem);
   }
 
   .hero-main {
-    padding: 1.5rem 1.5rem 0;
+    flex: 0 0 auto;
+    place-items: start center;
+    padding: min(64vw, 252px) 1.5rem min(54vw, 214px);
   }
 
-  /* Tighten the foot of the stack so the copy reads as one block and the
-     reclaimed space widens the band the lower rose sits in. */
   .hero-alt {
     margin-top: 1.25rem;
   }
@@ -2069,35 +2071,44 @@ section[id] {
   }
 
   .scroll-indicator {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem 0.25rem;
+    margin-top: 0.35rem;
+    padding: 0.4rem 1rem 0.2rem;
   }
 
-  /* Mobile has no free gutter, so the roses sit mostly off-canvas as quiet
-     corner accents behind the copy, with the motion softened to match. */
   .hero-roses {
-    --amp: 0.5;
+    --amp: 0.55;
   }
 
   .hero-rose--a {
-    --rose-w: min(48vw, 21vh);
-    --rose-op: 0.55;
-    top: 4%;
-    left: calc(var(--rose-w) * -0.62);
+    --rose-w: min(74vw, 292px);
+    --rose-op: 0.92;
+    top: calc(var(--navbar-safe-top) + 3.1rem);
+    left: -2%;
+    width: var(--rose-w);
   }
 
   .hero-rose--b {
-    --rose-w: min(50vw, 16vh);
-    --rose-op: 0.55;
-    bottom: 0;
-    right: calc(var(--rose-w) * -0.5);
+    --rose-w: min(72vw, 280px);
+    --rose-op: 0.86;
+    bottom: 0.6rem;
+    right: -6%;
+    width: var(--rose-w);
   }
 
-  /* On a short phone the centred copy sits low enough to reach the bottom
-     corner, so the lower rose gives way rather than crowding the microcopy. */
+  /* Short phones keep a real bloom, just a smaller one, so the primary
+     CTA still lands in the first screen. */
   @media (max-height: 700px) {
+    .hero-main {
+      padding-top: min(58vw, 220px);
+      padding-bottom: min(48vw, 188px);
+    }
+
+    .hero-rose--a {
+      --rose-w: min(62vw, 236px);
+    }
+
     .hero-rose--b {
-      --rose-w: min(50vw, 11vh);
+      --rose-w: min(60vw, 228px);
     }
   }
 
@@ -2268,7 +2279,8 @@ section[id] {
   }
 
   .hero-main {
-    padding: 1.25rem 1rem 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .phone-frame {
