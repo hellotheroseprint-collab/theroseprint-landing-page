@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 
 const TILT = 22;
+const DEPTH_Z = -140;
+const DEPTH_SCALE = 1040 / 900;
 
 function clamp(v: number) {
   return Math.min(1, Math.max(0, v));
@@ -77,6 +79,8 @@ export function useBookJourney() {
         let rot: number;
         let ry: number;
         let rx = 0;
+        let z = 0;
+        let depthScale = 1;
 
         if (q <= 0) {
           x = lerp(start.x, dockP.x, et);
@@ -84,6 +88,8 @@ export function useBookJourney() {
           w = lerp(start.w, dockP.w, et);
           rot = lerp(-6, -4, et) + Math.sin(Math.PI * t) * 10;
           ry = Math.sin(Math.PI * t) * TILT;
+          z = DEPTH_Z * (1 - et);
+          depthScale = lerp(DEPTH_SCALE, 1, et);
           if (t === 0) {
             ry += mx * 10;
             rx = -my * 8;
@@ -96,13 +102,13 @@ export function useBookJourney() {
           ry = -Math.sin(Math.PI * q) * TILT;
         }
 
-        const s = W > 0 ? w / W : 1;
+        const s = (W > 0 ? w / W : 1) * depthScale;
         const landed = q >= 1;
         const docked = t >= 0.92 && q <= 0.04;
         const journey = !reduced;
 
         if (journey) {
-          fly.style.transform = `translate3d(${x - W / 2}px,${cy - H / 2}px,0) perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) rotate(${rot}deg) scale(${s})`;
+          fly.style.transform = `translate3d(${x - W / 2}px,${cy - H / 2}px,0) perspective(900px) translateZ(${z}px) rotateX(${rx}deg) rotateY(${ry}deg) rotate(${rot}deg) scale(${s})`;
           fly.style.opacity = landed ? "0" : "1";
           heroImg.style.opacity = "0";
           dockImg.style.opacity = "0";

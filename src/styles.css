@@ -364,6 +364,10 @@ a.guide-buy--on-dark:hover {
   box-shadow: var(--shadow-book);
 }
 
+.book--hero .book__cover {
+  box-shadow: 0 46px 90px rgba(44, 40, 37, 0.18);
+}
+
 .book--thumb .book__cover {
   box-shadow: 0 8px 18px rgba(44, 40, 37, 0.2);
 }
@@ -518,7 +522,7 @@ a.guide-buy--on-dark:hover {
   font-family: var(--font-display);
   font-weight: normal;
   font-size: clamp(4rem, 16vw, 15.5rem);
-  line-height: 0.86;
+  line-height: 1.02;
   letter-spacing: -0.01em;
 }
 
@@ -533,17 +537,18 @@ a.guide-buy--on-dark:hover {
 .hero__slot {
   position: absolute;
   z-index: 1;
-  left: 50%;
-  top: 50%;
+  left: 46%;
+  top: 58%;
   width: clamp(150px, 19vw, 290px);
   margin-left: calc(clamp(150px, 19vw, 290px) / -2);
   transform: translateY(-50%);
+  perspective: 900px;
   pointer-events: none;
 }
 
 .hero__still {
   position: relative;
-  transform: rotate(-6deg);
+  transform: translateZ(-140px) rotate(-6deg) scale(1.155556);
   opacity: 0;
 }
 
@@ -1654,6 +1659,10 @@ a.guide-buy--on-dark:hover {
 @media (max-width: 720px) {
   .nav__links {
     display: none;
+  }
+
+  .hero__slot {
+    top: 64%;
   }
 
   .hero__bottom {
