@@ -1,30 +1,7 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, type FormEvent, type MouseEvent } from "react";
 import { track } from "../analytics/track";
 
 const MODAL_FORM_ID = "9454542";
-const SHOW_ONCE_KEY = "rp_modal_last_shown";
-const SHOW_ONCE_DAYS = 15;
-const TIMER_SECONDS = 20;
-
-function shouldShowModal(): boolean {
-  try {
-    const lastShown = localStorage.getItem(SHOW_ONCE_KEY);
-    if (!lastShown) return true;
-    const daysSince =
-      (Date.now() - Number(lastShown)) / (1000 * 60 * 60 * 24);
-    return daysSince >= SHOW_ONCE_DAYS;
-  } catch {
-    return true;
-  }
-}
-
-function markShown() {
-  try {
-    localStorage.setItem(SHOW_ONCE_KEY, String(Date.now()));
-  } catch {
-    /* localStorage unavailable */
-  }
-}
 
 interface KitModalProps {
   open: boolean;
@@ -32,35 +9,36 @@ interface KitModalProps {
 }
 
 export default function KitModal({ open, onClose }: KitModalProps) {
+  if (!open) return null;
+  return <KitModalDialog onClose={onClose} />;
+}
+
+function KitModalDialog({ onClose }: { onClose: () => void }) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (open) {
-      setEmail("");
-      setStatus("idle");
-      setTimeout(() => inputRef.current?.focus(), 100);
-    }
-  }, [open]);
+    const id = window.setTimeout(() => inputRef.current?.focus(), 100);
+    return () => window.clearTimeout(id);
+  }, []);
 
   useEffect(() => {
-    if (!open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+  }, [onClose]);
 
   const handleBackdropClick = useCallback(
-    (e: React.MouseEvent) => {
+    (e: MouseEvent) => {
       if (e.target === e.currentTarget) onClose();
     },
     [onClose]
   );
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!email || status === "sending") return;
 
@@ -82,8 +60,6 @@ export default function KitModal({ open, onClose }: KitModalProps) {
       setStatus("error");
     }
   };
-
-  if (!open) return null;
 
   return (
     <div className="kit-modal-overlay" onClick={handleBackdropClick}>
@@ -162,30 +138,4 @@ export default function KitModal({ open, onClose }: KitModalProps) {
       </div>
     </div>
   );
-}
-
-export function useKitModalTimer() {
-  const timerFired = useRef(false);
-
-  const start = useCallback((openModal: () => void) => {
-    if (timerFired.current) return;
-    if (!shouldShowModal()) return;
-
-    const id = setTimeout(() => {
-      timerFired.current = true;
-      markShown();
-      track("rp_modal_timer_open");
-      openModal();
-    }, TIMER_SECONDS * 1000);
-
-    return () => clearTimeout(id);
-  }, []);
-
-  const triggerFromClick = useCallback((openModal: () => void) => {
-    markShown();
-    track("rp_modal_cta_open");
-    openModal();
-  }, []);
-
-  return { start, triggerFromClick };
 }

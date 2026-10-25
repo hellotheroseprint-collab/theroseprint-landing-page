@@ -65,7 +65,10 @@ export type GuideCtaSource =
   | "faq"
   | "footer"
   | "final-cta"
-  | "free-section";
+  | "free-section"
+  | "dock"
+  | "pages"
+  | "compare";
 
 /* ── Free starter guide ─────────────────────────────────────────
    A $0 Payhip product: Payhip collects the email and delivers the PDF,

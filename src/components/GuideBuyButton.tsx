@@ -13,7 +13,8 @@ import { track } from "../analytics/track";
 type GuideBuyButtonProps = {
   source: GuideCtaSource;
   product?: "paid" | "free";
-  variant?: "primary" | "text" | "on-dark";
+  variant?: "primary" | "secondary" | "text" | "on-dark";
+  size?: "sm" | "md" | "lg";
   className?: string;
   children?: ReactNode;
 };
@@ -39,10 +40,16 @@ export default function GuideBuyButton({
   source,
   product = "paid",
   variant = "primary",
+  size = "lg",
   className = "",
   children,
 }: GuideBuyButtonProps) {
-  const classes = ["guide-buy", `guide-buy--${variant}`, className]
+  const classes = [
+    "guide-buy",
+    `guide-buy--${variant}`,
+    variant === "text" ? "" : `guide-buy--${size}`,
+    className,
+  ]
     .filter(Boolean)
     .join(" ");
 
